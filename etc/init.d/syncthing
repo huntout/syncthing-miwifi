@@ -5,9 +5,9 @@ START=99
 STOP=99
 
 start() {
-        service_start /usr/bin/syncthing 2>&1 | logger -t syncthing &
+        service_start /userdisk/.syncthing/syncthing -home /userdisk/.syncthing/config 2>&1 | logger -t syncthing &
 }
 
 stop() {
-        service_stop /usr/bin/syncthing
+        service_stop /userdisk/.syncthing/syncthing -home /userdisk/.syncthing/config
 }

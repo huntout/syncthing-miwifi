@@ -1,28 +1,30 @@
-# syncthing-openwrt
-Init script and usage for ARM based OpenWrt devices.
+# syncthing-miwifi
 
-This document is only applicable for devices with an ARM chip, and is only
-tested on OpenWrt BarrierBreaker 14.07.
+Init script and usage for MiWiFi.
+
+This document is only applicable for MiWiFi, and is only tested on MiWiFi 1T.
 
 Usage
 =====
 
-1. Login to your OpenWrt device via SSH.
+1. Login to your MiWiFi via SSH.
 
 2. Download and extract the Syncthing tarball, and copy the syncthing
-   executable to `/usr/bin` or any other location that are in your `PATH`
-   environment variable. (Please replace the URL and file names with the
+   executable to `/userdisk`. (Please replace the URL and file names with the
    latest version. You can find the link on https://syncthing.net .)
    ```shell
+   $ cd /userdisk
    $ curl -k https://github.com/syncthing/syncthing/releases/download/v0.11.9/syncthing-linux-arm-v0.11.9.tar.gz
-   $ tar -zxf syncthing-linux-arm-v0.11.9.tar.gz 
-   $ cd syncthing-linux-arm-v0.11.9
-   $ cp syncthing /usr/bin/
+   $ tar -zxf syncthing-linux-arm-v0.11.9.tar.gz
+   $ rm syncthing-linux-arm-v0.11.9.tar.gz
+   $ mkdir .syncthing
+   $ cp syncthing-linux-arm-v0.11.9/syncthing .syncthing/
    ```
 
 3. Run Syncthing for the first time.
    ```shell
-   syncthing
+   $ cd /userdisk/.syncthing
+   $ ./syncthing -generate=/userdisk/.syncthing/config
    ```
    When you see a message about your Node ID that looks like this:
    ```
@@ -31,10 +33,7 @@ Usage
    ```
    You can press Ctrl-C to stop it.
 
-4. If you don't want the Syncthing Web GUI to be accessible from WAN, you can
-   skip 5 and 6.
-
-5. Modify the Syncthing configuration file.
+4. Modify the Syncthing configuration file.
    ```shell
    $ vi ~/.config/syncthing/config.xml
    ```
@@ -50,6 +49,9 @@ Usage
       <address>0.0.0.0:8384</address>
    </gui>
    ```
+
+5. If you don't want the Syncthing Web GUI to be accessible from WAN, you can
+   skip 6.
 
 6. Open TCP port 8384 to WAN. Add the following lines in
    `/etc/config/firewall`:
@@ -70,6 +72,7 @@ Usage
    $ cp syncthing /etc/init.d
    $ chmod +x /etc/init.d/syncthing
    ```
+
 8. Enable and start the syncthing service.
    ```shell
    $ /etc/init.d/syncthing enable
