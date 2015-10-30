@@ -1,6 +1,6 @@
 # syncthing-miwifi
 
-Init script and usage for MiWiFi.
+Init script and usage of Syncthing for MiWiFi.
 
 This document is only applicable for MiWiFi, and is only tested on MiWiFi 1T.
 
@@ -14,11 +14,11 @@ Usage
    latest version. You can find the link on https://syncthing.net .)
    ```shell
    $ cd /userdisk
-   $ curl -k https://github.com/syncthing/syncthing/releases/download/v0.11.9/syncthing-linux-arm-v0.11.9.tar.gz
-   $ tar -zxf syncthing-linux-arm-v0.11.9.tar.gz
-   $ rm syncthing-linux-arm-v0.11.9.tar.gz
+   $ curl -k https://github.com/syncthing/syncthing/releases/download/v0.11.26/syncthing-linux-arm-v0.11.26.tar.gz
+   $ tar -zxf syncthing-linux-arm-v0.11.26.tar.gz
+   $ rm syncthing-linux-arm-v0.11.26.tar.gz
    $ mkdir .syncthing
-   $ cp syncthing-linux-arm-v0.11.9/syncthing .syncthing/
+   $ cp syncthing-linux-arm-v0.11.26/syncthing .syncthing/
    ```
 
 3. Run Syncthing for the first time.
@@ -35,7 +35,7 @@ Usage
 
 4. Modify the Syncthing configuration file.
    ```shell
-   $ vi ~/.config/syncthing/config.xml
+   $ vi /userdisk/.syncthing/config/config.xml
    ```
    Look for a section that looks like this:
    ```xml
@@ -68,7 +68,8 @@ Usage
 7. Download `/etc/init.d/syncthing` from this repository and copy it to
    `/etc/init.d` and make it executable.
    ```shell
-   $ curl -k https://github.com/brglng/syncthing-openwrt/raw/master/etc/init.d/syncthing
+   $ cd /userdisk
+   $ curl -k https://github.com/huntout/syncthing-miwifi/raw/master/etc/init.d/syncthing
    $ cp syncthing /etc/init.d
    $ chmod +x /etc/init.d/syncthing
    ```
@@ -79,7 +80,7 @@ Usage
    $ /etc/init.d/syncthing start
    ```
 
-9. Open http://your-openwrt-device-address:8384 on your browser.
+9. Open http://your-miwifi-address:8384 on your browser.
 
 10. If you have allowed access to your Syncthing Web GUI from WAN, make sure
     to turn on "GUI Authentication Password" and "Use HTTPS for GUI" in the
